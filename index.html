@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MathLab | Mathematical Foundations of Computer Applications</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">∑</div>
+        <div>
+          <div class="eyebrow">BCA • Interactive Learning Project</div>
+          <div style="font-weight:800">MATHEMATICAL FOUNDATIONS</div>
+        </div>
+      </div>
+
+      <h1>Welcome to <span>MathLab.</span></h1>
+
+      <p class="subtitle">
+        Explore how mathematical ideas power computer applications.
+        Calculate derivatives, visualise functions, estimate rates of
+        change, and perform set operations—all in one interactive mini-lab.
+      </p>
+
+      <div class="hero-tags">
+        <span class="tag">Functions & Graphs</span>
+        <span class="tag">Differentiation</span>
+        <span class="tag">Rates of Change</span>
+        <span class="tag">Set Theory</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <div class="section-title">
+      <h2>01 / Function Explorer</h2>
+      <p>Enter a function and see its graph.</p>
+    </div>
+
+    <div class="grid">
+
+      <section class="card span7">
+        <h3>Graph a mathematical function</h3>
+
+        <p class="desc">
+          Use x, numbers, + − × ÷, parentheses, and functions such as
+          sin(x), cos(x), tan(x), sqrt(x), abs(x), log(x), exp(x).
+          Powers use ^.
+        </p>
+
+        <label for="func">Function f(x)</label>
+        <input id="func" value="x^2 - 4" placeholder="e.g. x^2 - 4">
+
+        <div class="row">
+          <div>
+            <label for="xmin">Minimum x</label>
+            <input id="xmin" type="number" value="-5" step="1">
+          </div>
+
+          <div>
+            <label for="xmax">Maximum x</label>
+            <input id="xmax" type="number" value="5" step="1">
+          </div>
+        </div>
+
+        <button class="btn" id="plotBtn">Plot Function ↗</button>
+
+        <canvas id="graph" width="900" height="330"
+          aria-label="Function graph"></canvas>
+
+        <div class="small" id="graphStatus">
+          Tip: the graph is drawn from sampled points.
+          Some functions may have gaps or asymptotes.
+        </div>
+      </section>
+
+      <section class="card span5">
+        <h3>Derivative & Rate of Change</h3>
+
+        <p class="desc">
+          Estimate f′(a) numerically using the central-difference method.
+        </p>
+
+        <label for="derivFunc">Function f(x)</label>
+        <input id="derivFunc" value="x^3" placeholder="e.g. x^3">
+
+        <div class="row">
+          <div>
+            <label for="atX">Point a</label>
+            <input id="atX" type="number" value="3" step="any">
+          </div>
+
+          <div>
+            <label for="stepH">Step size h</label>
+            <input id="stepH" type="number" value="0.001"
+              step="any" min="0.000001">
+          </div>
+        </div>
+
+        <button class="btn" id="derivBtn">Calculate f′(a)</button>
+
+        <div class="result" id="derivResult" aria-live="polite">
+          <span class="small">Your derivative result will appear here.</span>
+        </div>
+
+        <h3 style="margin-top:18px">
+          How the slope approaches the exact derivative
+        </h3>
+
+        <p class="desc">
+          Compare numerical slopes for smaller h values with the exact
+          derivative, when the entered function is supported.
+        </p>
+
+        <div class="result" id="exactResult" aria-live="polite">
+          <span class="small">
+            The exact derivative reference will appear here.
+          </span>
+        </div>
+
+        <div class="table-wrap">
+          <table class="slope-table">
+            <thead>
+              <tr>
+                <th>Step size (h)</th>
+                <th>Estimated slope</th>
+                <th>Absolute error</th>
+              </tr>
+            </thead>
+            <tbody id="slopeRows">
+              <tr>
+                <td colspan="3" style="text-align:left">
+                  Results will appear here.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="note" style="margin-top:14px">
+          <strong>Math concept:</strong>
+          f′(a) ≈ [f(a+h) − f(a−h)] / (2h).
+          This estimates the slope of the curve at x = a.
+          Smaller h often improves the estimate, although extremely tiny
+          values can introduce rounding error.
+        </div>
+      </section>
+
+      <section class="card span6">
+        <h3>02 / Set Operations</h3>
+
+        <p class="desc">
+          Set theory is useful for filtering records and comparing groups
+          in databases.
+        </p>
+
+        <div class="sets">
+          <div>
+            <label for="setA">Set A (comma-separated)</label>
+            <input id="setA" value="Asha, Ravi, Neha, Kabir">
+          </div>
+
+          <div>
+            <label for="setB">Set B (comma-separated)</label>
+            <input id="setB" value="Neha, Kabir, Meera">
+          </div>
+        </div>
+
+        <label>Choose an operation</label>
+
+        <div class="set-buttons">
+          <button class="btn" data-op="union">A ∪ B</button>
+          <button class="btn" data-op="intersection">A ∩ B</button>
+          <button class="btn" data-op="difference">A − B</button>
+        </div>
+
+        <div class="result" id="setResult" aria-live="polite">
+          <span class="small">
+            Choose an operation to compare the sets.
+          </span>
+        </div>
+
+        <p class="small">
+          Example: A = students enrolled in Python; B = students enrolled
+          in DBMS. Intersection finds students enrolled in both.
+        </p>
+      </section>
+
+      <section class="card span6">
+        <h3>03 / Where is this used?</h3>
+
+        <p class="desc">
+          Connect the maths to everyday computing.
+        </p>
+
+        <div class="result">
+          <span class="pill">Functions</span>
+          <p>
+            Functions map inputs to outputs. Programs use them for
+            calculations, data transformations, and graphics.
+          </p>
+        </div>
+
+        <div class="result">
+          <span class="pill">Differentiation</span>
+          <p>
+            Derivatives model rates of change. In computing, similar ideas
+            help optimise models and understand changing values.
+          </p>
+        </div>
+
+        <div class="result">
+          <span class="pill">Set Theory</span>
+          <p>
+            Union, intersection, and difference correspond to combining,
+            matching, and excluding records in database queries.
+          </p>
+        </div>
+
+        <div class="result">
+          <span class="pill">Gradient Descent</span>
+          <p>
+            AI models apni error kam karne ke liye derivative ka use
+            karte hain.
+          </p>
+        </div>
+      </section>
+
+      <section class="card span12" id="gradientDescentLab">
+        <h3>04 / Gradient Descent Lab</h3>
+
+        <p class="desc">
+          Watch a red ball move along a function curve. Each step uses
+          the derivative to move x downhill:
+          x = x − learningRate × derivative(x).
+        </p>
+
+        <label for="gdFunction">Choose a function</label>
+
+        <select id="gdFunction">
+          <option value="square">f(x) = x²</option>
+          <option value="quartic">f(x) = x⁴ − 3x² + x</option>
+        </select>
+
+        <canvas id="gdCanvas" class="gd-canvas"
+          width="1000" height="360"
+          aria-label="Gradient descent curve with red ball and tangent line">
+        </canvas>
+
+        <div class="gd-legend">
+          <span><i class="gd-dot" style="background:#55e6e0"></i>
+            Function curve</span>
+          <span><i class="gd-dot" style="background:#ff8fbc"></i>
+            Tangent line</span>
+          <span><i class="gd-dot" style="background:#ff4d5e"></i>
+            Current point (ball)</span>
+        </div>
+
+        <div class="gd-controls">
+          <div>
+            <label for="gdStartX">
+              Start x: <span class="gd-value" id="gdStartValue">1.00</span>
+            </label>
+            <input class="gd-range" id="gdStartX" type="range"
+              min="-3" max="3" step="0.05" value="1">
+          </div>
+
+          <div>
+            <label for="gdLearningRate">
+              Learning rate:
+              <span class="gd-value" id="gdRateValue">0.10</span>
+            </label>
+            <input class="gd-range" id="gdLearningRate" type="range"
+              min="0.01" max="0.6" step="0.01" value="0.10">
+          </div>
+        </div>
+
+        <div class="gd-buttons">
+          <button class="btn" id="gdStep">Step →</button>
+          <button class="btn" id="gdRun">▶ Run</button>
+          <button class="btn" id="gdReset">↺ Reset</button>
+        </div>
+
+        <div class="gd-stats">
+          <div class="gd-stat">
+            <span class="small">Step count</span>
+            <strong id="gdSteps">0</strong>
+          </div>
+
+          <div class="gd-stat">
+            <span class="small">Current x</span>
+            <strong id="gdX">1.000000</strong>
+          </div>
+
+          <div class="gd-stat">
+            <span class="small">f(x)</span>
+            <strong id="gdFx">1.000000</strong>
+          </div>
+
+          <div class="gd-stat">
+            <span class="small">Slope f′(x)</span>
+            <strong id="gdSlope">2.000000</strong>
+          </div>
+        </div>
+
+        <div class="gd-status" id="gdStatus" aria-live="polite">
+          Ready. Press Step to take one gradient-descent update.
+        </div>
+
+        <div class="note" style="margin-top:14px">
+          <strong>How it works:</strong>
+          The derivative tells us the local slope. Gradient descent moves
+          x in the opposite direction of that slope. A suitable learning
+          rate helps the ball approach a local minimum; a rate that is
+          too large can make it overshoot or diverge.
+        </div>
+      </section>
+
+      <section class="card span12">
+        <h3>Project Summary</h3>
+
+        <p class="desc">
+          MathLab is a browser-based educational tool demonstrating how
+          mathematical concepts can be implemented with programming.
+        </p>
+
+        <div class="grid">
+          <div class="span6">
+            <div class="result">
+              <strong>Objective</strong>
+              <p>
+                To demonstrate practical applications of functions,
+                numerical differentiation, and set operations in
+                computer applications.
+              </p>
+            </div>
+          </div>
+
+          <div class="span6">
+            <div class="result">
+              <strong>Learning outcome</strong>
+              <p>
+                We learned how mathematical rules can be represented
+                as algorithms, calculated by JavaScript, and presented
+                through an interactive user interface.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="small">
+          Created for: Mathematical Foundation of Computer Application
+          • Project title: MathLab — Interactive Mathematical Computing Lab
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    MathLab • Learn the maths behind the machine ✦
+    <br>
+    Team: Shubh, Aditya, Faran
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
