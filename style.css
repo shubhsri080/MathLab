@@ -35,12 +35,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body::before {
-  content: '';
+.starfield {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+}
+
+/* Extra distant stars keep the fuller, tiled sky from the original backdrop. */
+.starfield::before,
+.starfield::after {
+  content: '';
+  position: absolute;
+  inset: -24px;
+  opacity: .48;
   background-image:
     radial-gradient(1px 1px at 7% 13%, #f2fff0e8 98%, transparent),
     radial-gradient(1px 1px at 18% 72%, #c9f8ffd9 98%, transparent),
@@ -50,7 +58,14 @@ body::before {
     radial-gradient(1.5px 1.5px at 68% 65%, #b8f5ffcc 98%, transparent),
     radial-gradient(1px 1px at 79% 34%, #ffffffdf 98%, transparent),
     radial-gradient(1px 1px at 92% 82%, #d8faffd9 98%, transparent),
-    radial-gradient(1px 1px at 84% 9%, #b9f3ffd9 98%, transparent),
+    radial-gradient(1px 1px at 84% 9%, #b9f3ffd9 98%, transparent);
+  background-size: 390px 310px;
+  animation: star-cloud-a 22s ease-in-out infinite alternate;
+}
+
+.starfield::after {
+  opacity: .38;
+  background-image:
     radial-gradient(1px 1px at 12% 48%, #ffffffcc 98%, transparent),
     radial-gradient(1px 1px at 27% 93%, #eefff4d9 98%, transparent),
     radial-gradient(1px 1px at 73% 5%, #baf5ffd9 98%, transparent),
@@ -60,8 +75,39 @@ body::before {
     radial-gradient(1px 1px at 4% 64%, #c4f6ffd9 98%, transparent),
     radial-gradient(1px 1px at 48% 4%, #ffffffcc 98%, transparent),
     radial-gradient(1px 1px at 96% 22%, #ddffebd9 98%, transparent);
-  background-size: 390px 310px, 610px 470px, 890px 680px;
-  opacity: .9;
+  background-size: 610px 470px;
+  animation: star-cloud-b 27s ease-in-out -8s infinite alternate;
+}
+
+@keyframes star-cloud-a {
+  to { transform: translate3d(16px, -11px, 0); }
+}
+
+@keyframes star-cloud-b {
+  to { transform: translate3d(-13px, 9px, 0); }
+}
+
+.starfield i {
+  --dx: 12px;
+  --dy: -10px;
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size, 2px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color, #efffff);
+  box-shadow: 0 0 6px var(--color, #efffff);
+  opacity: .85;
+  animation: star-drift var(--duration, 9s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+.starfield i:nth-child(3n) { --dx: -13px; --dy: 8px; }
+.starfield i:nth-child(3n + 1) { --dx: 8px; --dy: 12px; }
+.starfield i:nth-child(3n + 2) { --dx: -7px; --dy: -12px; }
+
+@keyframes star-drift {
+  to { transform: translate3d(var(--dx), var(--dy), 0); }
 }
 
 body > * { position: relative; z-index: 1; }
